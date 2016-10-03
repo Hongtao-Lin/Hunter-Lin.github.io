@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Neural Machine Translation Tutorial"
+title: "Neural Machine Translation Review"
 date: 2016-09-22 16:39:23
 comments: true
 published: true
-description: "A review on NMT based on ACL 2016 Tutorial"
+description: "A review on NMT"
 keywords: "NMT, NLP"
 excerpt_separator: <!--more-->
 categories: tech
@@ -13,58 +13,56 @@ tags:
 ---
 
 
-A review on NMT based on ACL 2016 Tutorial. Including the theoratical part and practical guide.
+A review on NMT based on ACL 2016 Tutorial and some current State-of-the-art progresses. Hope to include both theoratical part and practical guide.
+
 <!--more-->
+
+Here's a recource on practical tips:
 
 More rec: [nmt practical tips](https://github.com/neubig/nmt-tips)
 
 # Inrtroduction on (Neural) Machine Translation
 
-TODO:
-
-Quickly review the SMT.
+Previously, the state-of-the-art system mostly involved huge efforts from experts, constructing so-called phrase-based statistical machine translation (SMT) system. But with the help of neural network and big data, we are now excluded from these dirty work. If you wanna know more about SMT, [here](https://alopez.github.io/papers/survey.pdf) is a survey.
 
 One sentence def of Neural Machine Translation (NMT): 
 
 > Neural Machine Translation is the approach of modeling the entire MT process via one big artificial neural network.
 
-## Quick View on NMT:
+## Quick Facts on NMT:
 
-* Purposed in 2014 [Sutskever et al., Bahdanau et al.], widely adopted now!
-* End-to-end training. All parameters tuned simultaneously.
-* Larger context
+- Purposed in 2014 [Sutskever et al., Bahdanau et al.], quickly and widely adopted now!
+- End-to-end training. All parameters tuned simultaneously.
+- Have larger context to consider.
 
-
-<Need info on SMT/phrase-based MT!!>
-[](https://alopez.github.io/papers/survey.pdf)
 
 ## Language Model Revisit
 
-To know the basic structure of NMT, which is a typical encoder-decoder structure, we have to first know the neural language model. If you know about both CBOW and RNNLM, you can skip this part.
+To know the basic structure of NMT, which is a typical encoder-decoder structure, we have to first (re-)visit the neural language model. If you know about both CBOW and RNNLM, you can skip this part.
 
-Language model is basically a probability $$ p(\mathbf{x}) = p(x_1, x_2, \dots, x_n) $$ for a given sentence, so that it's higher for correct ones. 
+Language model is basically predicting a probability $$ p(\mathbf{x}) = p(x_1, x_2, \dots, x_n) $$ for a given sequence of words, so that it's higher for well-constructed sentences. 
 
-Traditional LM converts the probability, assuming each word only depends on its precedents: $$ p(\mathbf{x}) = \prod_{t}p(x_t \vert x_1, x_2, \dots, x_{t-1}) $$. Under the Markov assumption, we can further convert the equation like: $$ p(x_t \vert x_1, \dots, x_{t-1}) = p(x_t \vert x_{t-n}, \dots, x_{t-1}) $$, where $$n$$ is the order of Markov chain.
+Traditional LM converts the probability, assuming each word only depends on its precedents: $$ p(\mathbf{x}) = \prod_{t}p(x_t \vert x_1, x_2, \dots, x_{t-1}) $$. Under the Markov assumption, we can further convert the equation like: $$ p(x_t \vert x_1, \dots, x_{t-1}) = p(x_t \vert x_{t-n}, \dots, x_{t-1}) $$, where $$n$$ is the order of Markov chain. But there are some problems to consider when training them:
 
-### Prob 1: Too Large to Store
+Prob 1: Too Large to Store
 
-According to n-gram model, we have to store values associated with $$ n $$ words, which goes exponentially large with vocabulary size $$ V = 100,000 $$. That's not a cost we can afford. On the other hand, few of them are non-empty entries according to syntactic regulation. 
+:	According to n-gram model, we have to store values associated with $$ n $$ words, which goes exponentially large with vocabulary size $$ V = 100,000 $$. That's not a cost we can afford. On the other hand, few of them are non-empty entries according to syntactic regulation. 
 
-### Sol 1: Probabilistic LM
+Sol 1: Probabilistic LM
 
-In 2003, Bengio first introduced the neural language model, which he represented the word as a *dense* and distributed value. They tried to minimize the n-gram probability by first encoding the first n-gram context ($$ n \times d $$) into a $$d$$-dim vector, then using a $$ \vert V \vert \times d $$ matrix to recover the probability for next word. Detailed process is described below:
+:	In 2003, Bengio first introduced the neural language model, which he represented the word as a *dense* and distributed value. They tried to minimize the n-gram probability by first encoding the first n-gram context ($$ n \times d $$) into a $$d$$-dim vector, then using a $$ \vert V \vert \times d $$ matrix to recover the probability for next word. Detailed process is described below:
 
 ![]({{site.url}}/images/nmt-nlm.png)
 
 Further revision are advanced as CBOW, Skip-gram.
 
-### Prob 2: Short-term Context
+Prob 2: Short-term Context
 
-Under the Markov assumption, only limited number of preceded words are considered as context, which may not capture some long-term dependencies, such as the reference of a person after a long modifier.
+:	Under the Markov assumption, only limited number of preceded words are considered as context, which may not capture some long-term dependencies, such as the reference of a person after a long modifier.
 
-### Sol 2: Recursive Neural Network (RNN)
+Sol 2: Recursive Neural Network (RNN)
 
-Let's remove the Markov assumption and calculate the probability directly. Using a recursive function, we can encode all previous information by keeping a hidden state $$ h_t $$ that captures all previous words as a dense vector. At each time step, the hidden state will output a probability indicating the next word, thus this probability is conditioned on all previous words. 
+:	Let's remove the Markov assumption and calculate the probability directly. Using a recursive function, we can encode all previous information by keeping a hidden state $$ h_t $$ that captures all previous words as a dense vector. At each time step, the hidden state will output a probability indicating the next word, thus this probability is conditioned on all previous words. 
 
 ![]({{site.url}}/images/nmt-rnnlm.png)
 
@@ -74,9 +72,7 @@ This section helps readers to go through basic knowledges about RNN, involving t
 
 ## Training in RNN
 
-Basic stocastic gradient descent can be applied here. But the calculation may be different since it's a recursive function. Due to its recursive property, vanilla RNN usually suffers from *vanishing/exploding gradient* problems as the gradient passes through $$ \frac{\partial{h_t}}{\partial{h_{t-1}}}  $$. To avoid the exploding gradient, we can use *clipping* method so that we set a bound to the gradient. For vanishing gradient, we can either: initialize $$W$$ to identity matrix, or: use ReLU insteaf of Tanh.
-
-To get the sense in mathamatical ways, see post [here](http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/). 
+Basic stocastic gradient descent can be applied here. But the calculation may be different since it's a recursive function. Due to its recursive property, vanilla RNN usually suffers from *vanishing/exploding gradient* problems as the gradient passes through $$ \frac{\partial{h_t}}{\partial{h_{t-1}}}  $$. To avoid the exploding gradient, we can use *clipping* method so that we set a bound to the gradient. For vanishing gradient, we can either: initialize $$W$$ to identity matrix, or: use ReLU insteaf of $$tanh$$. To know why these gradient problem exists mathamatically, see post [here](http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/). 
 
 Another thing to notice is the various length of sentences. It's true that RNN can handle various length at ease, but in practice, due to the storage issue, we'd better pad 0's at the end so that they are in same length. When back-propagate, we can use masking to omit these 0s. 
 
@@ -86,24 +82,30 @@ So far, RNN may not capture long-term memory as we expect. But modifications lik
 
 ## Encoder-Decoder
 
-A modification of RNN strucutre is Encoder-Decoder. It first encodes the input (may be images, sentences, etc.) to a vector using RNN, then decode the output message per time step. Below shows this structure:
+A modification of RNN strucutre is Encoder-Decoder. It first encodes the input (may be images, sentences, etc.) to a fiexed-length vector using RNN, then decodes the output word per time step. Below shows this structure:
 
 ![]({{site.url}}/images/nmt-ende.png)
 
-Sometimes we may add extra inputs to decoder, like the original vector, attention vector, etc.
+Sometimes we may add extra inputs to decoder, like context vector as a way of *attention*.
 
 ## Decoding Strategies
 
-Decoding may not be easy, because what we want is a globally optimized sequence, while we only generate one at a time. We would describe 3 attempts below:
+Having trained the encoder-decoder, to generate outputs, we will do decoding to find the best output sequence. Since the candidate domain is exponentially large and the outputs are generated one word per step, it's not practical to record all possible outputs and find the optimal ones. Here we have to consider heuristic methods to save time and space.
+
+We would describe 3 attempts below:
 
 1. Ancestral Sampling: sample a term from the softmax distribution each time. 
-    It's unbiased, but introduce high variance, and pretty inefficient??
-2. Greedy Search: get the best each time
-    Efficient but suboptimal
-3. Beam Search:
-    Dynamically preserve a set of Top-K result. When expanded, $$K \times \vert V \vert$$ results are evaluated. Much better results, but computationally expensive
+-	It's unbiased, but introduce high variance, and pretty inefficient??
+2. Greedy Search: get the best each time.
+-	Efficient but suboptimal
+3. Beam Search: Dynamically preserve a set of Top-K result. When expanded, $$K \times \vert V \vert$$ results are evaluated. 
+-	Much better results, but computationally expensive.
+
+In practice, beam search is widely used.
 
 # Advancing NMT
+
+In the section, we will talk about the current trends in NMT. We will list the four aspects that reseachers are working towards. 
 
 ## Vocabulary Aspect
  
