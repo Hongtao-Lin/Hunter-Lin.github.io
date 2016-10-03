@@ -1,0 +1,176 @@
+---
+layout: home
+---
+
+<div class="main">
+
+
+	<section class="hero">
+
+	  <div class="hero-inner container">
+
+	    <img src="{{ site.author.thumb | prepend: site.baseurl }}" alt="author thumb" class="dot">
+	    <h1>Hello!..</h1>
+	    <h3>I'm <strong itemprop="name">{{ site.author.name }}</strong>, a <span itemprop="jobTitle">{{ site.author.job }}</span>.</h3>
+	    <h3>{{ site.author.bio }}</h3>
+
+	    <a href="{{ '/about' | prepend: site.baseurl }}" class="btn btn-ghost">about</a>
+	    <a href="{{ '/blog' | prepend: site.baseurl }}" class="btn btn-ghost">blog</a>
+
+	    {% include social.html %}
+
+	  </div>
+
+	</section>
+
+	<div id="particles-js"></div>
+
+</div>
+
+<div class="wrapper" id="basic">
+	
+	<section class="row" lang="en">
+		<article class="six columns">
+			<h4>BIO</h4>
+			<p>I'm expected to get my Bachelor's degree from <a href="//english.seiee.sjtu.edu.cn/english/info/8338.htm" target="_blank">IEEE Honor Class</a> at <a href="http//www.sjtu.edu.cn/" target="_blank">Shanghai Jiao Tong University</a>, majoring in Computer Science &amp; Technology. I attended <a href="https://speechlab.sjtu.edu.cn/" target="_blank">SJTU speechlab</a> in 2015 fall. Under the supervision of <a href="https://speechlab.sjtu.edu.cn/~kyu/" target="_blank">Prof. Kai Yu</a> and Prof. Ke Wu, where I paticipated in several <a href="#">research projects</a>. 
+			<p>I'm currently doing internship in Microsoft Search Technology Center Asia (STCA).</p>
+			</p>
+		</article>
+		<article class="six columns">
+			<h4>INTERESTS</h4>
+			<p>I've got one year experiences in full-stack web development. I enjoy exploring possibilities in different <a href="https://en.wikipedia.org/wiki/User_experience_design" target="_blank">UI/UX design</a> and figure out its potential impact on users.</p>
+			<p>Also, I've get involoved SJTU Speechlab, doing research in field of Natural Language Processing (NLP), specifically semantic-level analysis.</p>
+			<p>Apart from CS domain, I'm a BIG fan of music and singing. Currently learning hard to be a proficient guitar player.</p>
+		</article>
+	</section>
+</div>
+
+<div class="out-wrapper" id="proj">
+
+	<div class="wrapper-title">
+		<section class="row">
+			<h3>PROJECT</h3>
+		</section>
+	</div>	
+
+
+	<div class="wrapper" id="sci-class">
+		<section class="row">
+			<article class="columns eight">
+				<h4>Science Class</h4>
+				<p>It's a demo intended for pupils, helping them study math with joy :)</p>
+				<p>Based on the cycle of "test, learn, exercise", we built up a knowledge graph for knowledge selection entry, ppt-like learning interface in order to attract them.</p>
+				<p>Won the 4th prize in the hackthon <a href="http://inside.hujiang.com/hackathon/" target="_blank">Hujiang Geek Show</a></p>
+				<a href="https://github.com/OneTicketTech/ScienceClass_Frontend" target="_blank" class="btn btn-ghost"><i class="icon icon-github"></i>View on Github</a>
+			</article>
+			<figure class="columns four">
+				<!-- <img src="images/unipolar3.png"> -->
+			</figure>
+		</section>
+	</div>
+
+	<div class="wrapper" id="unipolar">
+		<section class="row">
+			<figure class="columns four">
+				<img src="images/unipolar3.png">
+			</figure>
+			<article class="columns eight">
+				<h4>Unipolar</h4>
+				<p>It's a computer <a href="https://en.wikipedia.org/wiki/Computer_Go" target="_blank">Go</a> program written in C++. To make machine "understand" the game of Go, we apply approximation methods (<a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank">MCMC</a>) to do simulation on board, trying to let it figure out the optimal next move.</p>
+				<p>And to speed up the searching process, some algorithms (AMAF, RAVE) are applied to balance between exploration and exploitation within tree search. </p>
+				<p>Ranked second out of 12 teams in course <em>Aritifical Intelligence</em>.</p>
+				<a href="https://github.com/Hunter-Lin/Unipolar" target="_blank" class="btn btn-ghost"><i class="icon icon-github"></i>View on Github</a>
+			</article>
+		</section>
+	</div>
+
+	<div class="wrapper" id="xichao">
+		<section class="row">
+			<article class="columns eight">
+				<h4><a href="http://xichao-o.com" target="_blank">Xichao</a></h4>
+				<p>The official website of Xichao bookstore, which is a bookstore in our campus.</p>
+				<p>It helps users to share and view book-related experiences, hold up activities offline. Invited authors can also write special columns.</p>
+				<a href="https://github.com/NewBeeStudio/xichao-new" target="_blank" class="btn btn-ghost"><i class="icon icon-github"></i>View on Github</a>
+			</article>
+			<figure class="columns four logo">
+				<img src="images/xichao-logo2.png">
+			</figure>
+		</section>
+	</div>
+
+	<div class="wrapper" id="NAS">
+		<section class="row">
+			<figure class="columns four">
+				<img src="images/NAS2.png">
+			</figure>
+			<article class="columns eight">
+				<h4>NAS System</h4>
+				<p>A Network Attached Storage System Based on Raspberry Pi.</p>
+				<p>It's capable of downloading and retrieving files from private FTP, HTTP/BT links. Also, files in system can be shared at will to friends. All of them can be done within a small raspberry pi!</p>
+			</article>
+		</section>
+	</div>
+<!-- 	
+	<div class="wrapper" id="grape">
+		<section class="row">
+			<article class="columns eight">
+				<h4>Grape</h4>
+				<p>A website aasist users to form up a group, discuss ideas and share resources within it.</p>
+				<a href="https://github.com/Hunter-Lin/Grape" target="_blank" class="btn btn-ghost"><i class="icon icon-github"></i>View on Github</a>
+
+			</article>
+		</section>
+	</div>
+ -->
+
+</div>
+
+<div class="out-wrapper" id="research">
+
+	<div class="wrapper-title">
+		<section class="row">
+			<h3>RESEARCH</h3>
+		</section>
+	</div>	
+
+	<div class="wrapper" id="car">
+		<section class="row">
+			<article class="columns eight">
+				<h4><a href="http://202.120.38.125:22222/" target="_blank">Car-Info</a></h4>
+				<p>In this project, we did analysis of users' comments on cars, three tasks are performed: comment classification, keyword extraction and sentiment analysis.</p> 
+				<p>We first crawled seven websites, gathering 600,000 pieces of comments after cleansing. Then using machine learning and NLP-related techniques (SVM, CNN, <a href="https://en.wikipedia.org/wiki/Word2vec" target="_blank">Word2vec</a>) to perform above tasks. Also, a website for visulization is built.</p>
+				<a href="https://github.com/Hunter-Lin/Car-Info" target="_blank" class="btn btn-ghost"><i class="icon icon-github"></i>View on Github</a>
+			</article>
+			<figure class="columns four">
+				<img src="images/car-info3.png">
+			</figure>
+		</section>
+	</div>
+
+	<div class="wrapper" id="weibo">
+		<section class="row">
+			<figure class="columns four logo">
+				<img src="images/weibo.png">
+			</figure>
+			<article class="columns eight">
+				<h4>Dataset Construction of Multi-round Dialog</h4>
+				<p>We aimed to build a large dateset (about 20,000,000 pieces) of multi-round dialog, which is essential for training a chatbot.</p>
+				<p>The dataset is crawled from daily conversations in <a href="http://weibo.com/" target="_blank">weibo</a>, which is a popular social media in China. Due to its strong anti-crawler machanism, ongoing work is focus on how to guarantee a stable crawler program.</p>
+			</article>
+		</section>
+	</div>
+
+	<div class="wrapper" id="ner">
+		<section class="row">
+			<article class="columns eight">
+				<h4>Named Entity Recognition System</h4>
+				<p>In this project, we seek for fast and accurate tagging system aiming to find out three kinds of phrases (i.e., <a href="https://en.wikipedia.org/wiki/Named_entity" target="_blank">named entities</a>): person name, location and organizarion. Also, our system differs from others in that our target is to tag sentences on daily dialogs.</p>
+				<p>A survey on this topic is firstly performed in order to figure out the path researchers have taken. Then we built a strong baseline system using a graphical model called CRF. Future plans involved testing on more casual dialogs.</p>
+			</article>
+			<figure class="columns four">
+				<img src="images/ner2.png">
+			</figure>
+		</section>
+	</div>
+
+</div>

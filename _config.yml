@@ -1,0 +1,50 @@
+# Build settings
+permalink   : /blog/:year/:month/:day/:title/
+markdown    : kramdown
+highlighter : pygments
+gems: [jekyll-paginate]
+future: true
+paginate: 3
+paginate_path: "/blog/page/:num/"
+comments: true
+
+source: source
+destination: _site
+sass:
+  sass_dir: _scss
+  style: compressed # expanded
+
+# SEO settings
+title: Hongtao Lin
+description: "Blog and Resume of Hongtao Lin"
+keywords: "resume, blog, web"
+url: http://hunter-lin.github.io
+baseurl: ""
+baseres: ""
+
+# google_analytics: UA-52446115-1
+repo: http://github.com/hunter-lin
+disqus_shortname: "hunter-lin"
+disqus_site_shortname: "hunter-lin"
+
+# Author settings
+author:
+  name      : Hongtao Lin
+  job       : Full-stack Engineer
+  bio       : "Learning to Learn :)"
+  thumb     : /images/me.png
+  email     : Linkin_HearT@sjtu.edu.cn
+  url       : http://nandomoreira.me
+  github    : http://github.com/hunter-lin
+  # twitter   : http://twitter.com/nandomoreirame
+  facebook  : http://facebook.com/lin.hunter.7737
+  linkedin  : https://www.linkedin.com/in/hunter-lin
+
+# navbar pages
+navbar:
+  - slug: about
+    title: About
+  - slug: blog
+    title: Blog
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
